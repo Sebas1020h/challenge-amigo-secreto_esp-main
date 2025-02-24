@@ -14,47 +14,23 @@ function agregarAmigo() {
     // Agrega elemento al Array
     amigos.push(nombreAmigo)
     
+    listaDeAmigos();
     // Limpiar el campo de entrada después de agregar el nombre
     inputAmigo.value = "";
 }
 
-// Función para sortear el amigo secreto
-function sortearAmigo() {
-    let listaAmigos = document.getElementById('listaAmigos').children;
-    let resultado = document.getElementById('resultado');
+function listaDeAmigos() {
 
-    // Verificar si hay al menos dos amigos en la lista
-    if (listaAmigos.length < 2) {
-        alert("Debe haber al menos dos amigos para realizar el sorteo.");
-        return; // Detener la función si no hay suficientes amigos
-    }
+    let lista = document.getElementById('listaAmigos')
+    lista.innerHTML = ""; // Limpia la lista
 
-    // Limpiar resultados anteriores
-    resultado.innerHTML = "";
+    for (let i = 0; i < amigos.length; i++) {
 
-    // Crear una copia de la lista de amigos para no modificar la original
-    let amigos = Array.from(listaAmigos).map(li => li.textContent);
+        let amigo = amigos[i];
+        let nuevoAmigo = document.createElement('li');
+        nuevoAmigo.textContent = amigo; // Asignar el nombre del amigo
 
-    // Realizar el sorteo
-    let asignaciones = {};
-    let amigosDisponibles = [...amigos];
-
-    amigos.forEach(amigo => {
-        // Filtrar para que no se asigne a sí mismo
-        let posibles = amigosDisponibles.filter(a => a !== amigo);
-        let amigoAsignado = posibles[Math.floor(Math.random() * posibles.length)];
-
-        // Asignar el amigo secreto
-        asignaciones[amigo] = amigoAsignado;
-
-        // Eliminar el amigo asignado de la lista de disponibles
-        amigosDisponibles.splice(amigosDisponibles.indexOf(amigoAsignado), 1);
-    });
-
-    // Mostrar los resultados
-    for (let [amigo, amigoSecreto] of Object.entries(asignaciones)) {
-        let resultadoItem = document.createElement('li');
-        resultadoItem.textContent = `${amigo} ➔ ${amigoSecreto}`;
-        resultado.appendChild(resultadoItem);
+        // Agregar el nuevo <li> a la lista <ul>
+        lista.appendChild(nuevoAmigo);
     }
 }
