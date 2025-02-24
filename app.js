@@ -45,7 +45,7 @@ function sortearAmigo() {
     let amigoSorteado = amigos[indice];
 
     //comprobar si el array de amigos no este vacio
-    if (amigos.length === 0 ) {
+    if (amigos.length < 2 ) {
         alert("Debe haber al menos dos amigos para realizar el sorteo.");
         return;
     }
